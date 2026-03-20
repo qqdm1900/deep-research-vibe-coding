@@ -37,6 +37,18 @@ const observer = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+// ── Module accordion ─────────────────────────────────────────────────────
+
+document.querySelectorAll('.module-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+    const body   = trigger.nextElementSibling;
+
+    trigger.setAttribute('aria-expanded', String(!isOpen));
+    body.classList.toggle('open', !isOpen);
+  });
+});
+
 // ── Scroll listener ───────────────────────────────────────────────────────
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });

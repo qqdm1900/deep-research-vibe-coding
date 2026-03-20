@@ -601,7 +601,62 @@ tbody td:first-child {
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
+  gap: 0;
+  transition: border-color 0.2s;
+}
+
+.module-card:has(.module-trigger:hover),
+.module-card:has(.module-trigger[aria-expanded="true"]) {
+  border-color: rgba(14,165,233,0.35);
+}
+
+.module-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+  padding: 0;
+  text-align: left;
+  color: inherit;
+}
+
+.module-trigger:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.module-trigger-left { flex: 1; }
+
+.module-chevron {
+  color: var(--text-muted);
+  flex-shrink: 0;
+  transition: transform 0.25s ease, color 0.2s;
+}
+
+.module-trigger[aria-expanded="true"] .module-chevron {
+  transform: rotate(180deg);
+  color: var(--teal);
+}
+
+.module-trigger[aria-expanded="true"] ~ .module-body {
+  /* open state handled by max-height */
+}
+
+.module-body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease, padding 0.25s ease;
+  padding-top: 0;
+}
+
+.module-body.open {
+  max-height: 300px;
+  padding-top: 1rem;
 }
 
 .module-num {
@@ -610,6 +665,7 @@ tbody td:first-child {
   color: var(--teal);
   text-transform: uppercase;
   letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
 }
 
 .module-card h3 { font-size: 1.05rem; }
@@ -634,6 +690,18 @@ tbody td:first-child {
   color: var(--teal);
   flex-shrink: 0;
   margin-top: 0;
+}
+
+.module-topics a {
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.module-topics a:hover {
+  color: var(--teal);
+  border-bottom-color: rgba(14, 165, 233, 0.4);
 }
 
 .checklist-wrap {

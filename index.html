@@ -167,7 +167,7 @@
     </div>
 
     <!-- Business Case -->
-    <div class="section-header fade-in" style="margin-top: 4rem; max-width: 100%;">
+    <div id="business-case" class="section-header fade-in" style="margin-top: 4rem; max-width: 100%;">
       <div class="section-label">Business Case</div>
       <h2>The C-Suite Imperative</h2>
       <p>Observability ties technical performance directly to financial outcomes—reducing unit costs, accelerating delivery, and managing regulatory risk.</p>
@@ -304,7 +304,7 @@
     </div>
 
     <!-- Drift Types Table -->
-    <h3 class="fade-in" style="margin-bottom: 1rem; color: var(--text-main);">Drift Types &amp; Detection Methods</h3>
+    <h3 id="drift-types" class="fade-in" style="margin-bottom: 1rem; color: var(--text-main);">Drift Types &amp; Detection Methods</h3>
     <div class="table-wrap fade-in">
       <table>
         <thead>
@@ -373,7 +373,7 @@
     </div>
 
     <!-- Explainability -->
-    <div class="section-header fade-in" style="margin-top: 4rem;">
+    <div id="explainability" class="section-header fade-in" style="margin-top: 4rem;">
       <div class="section-label">Explainability</div>
       <h2>LIME vs. SHAP</h2>
       <p>Two leading techniques for opening the black box and clarifying how a model reached a specific decision.</p>
@@ -419,7 +419,7 @@
     </div>
 
     <!-- GenAI Metrics -->
-    <div class="section-header fade-in" style="margin-top: 4rem;">
+    <div id="genai-metrics" class="section-header fade-in" style="margin-top: 4rem;">
       <div class="section-label">Generative AI</div>
       <h2>Response Quality Metrics</h2>
       <p>Generative systems are probabilistic. These metrics assess accuracy, completeness, and relevance at scale.</p>
@@ -598,58 +598,93 @@
     <div class="learn-grid">
 
       <div class="module-card fade-in">
-        <div class="module-num">Module 01</div>
-        <h3>Introduction to AI Reliability</h3>
-        <ul class="module-topics">
-          <li>What is Observability? Distinguishing it from monitoring and explainability</li>
-          <li>The business case, ROI data, and regulatory landscape</li>
-          <li>Core concepts: probabilistic systems and silent failures</li>
-          <li>The EU AI Act and compliance obligations</li>
-        </ul>
+        <button class="module-trigger" aria-expanded="false">
+          <div class="module-trigger-left">
+            <div class="module-num">Module 01</div>
+            <h3>Introduction to AI Reliability</h3>
+          </div>
+          <svg class="module-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="module-body">
+          <ul class="module-topics">
+            <li><a href="#concept">What is Observability? Distinguishing it from monitoring and explainability</a></li>
+            <li><a href="#business-case">The business case, ROI data, and regulatory landscape</a></li>
+            <li><a href="#concept">Core concepts: probabilistic systems and silent failures</a></li>
+            <li><a href="#concept">The EU AI Act and compliance obligations</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="module-card fade-in">
-        <div class="module-num">Module 02</div>
-        <h3>The Metrics of Intelligence</h3>
-        <ul class="module-topics">
-          <li>Standard telemetry: logs, metrics, and traces in an AI context</li>
-          <li>The new pillars: Evals, Annotation, and AI-native tracing</li>
-          <li>GenAI specifics: groundedness, relevance, hallucination rates</li>
-          <li>Token efficiency and cost attribution</li>
-        </ul>
+        <button class="module-trigger" aria-expanded="false">
+          <div class="module-trigger-left">
+            <div class="module-num">Module 02</div>
+            <h3>The Metrics of Intelligence</h3>
+          </div>
+          <svg class="module-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="module-body">
+          <ul class="module-topics">
+            <li><a href="#pillars">Standard telemetry: logs, metrics, and traces in an AI context</a></li>
+            <li><a href="#pillars">The new pillars: Evals, Annotation, and AI-native tracing</a></li>
+            <li><a href="#genai-metrics">GenAI specifics: groundedness, relevance, hallucination rates</a></li>
+            <li><a href="#genai-metrics">Token efficiency and cost attribution</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="module-card fade-in">
-        <div class="module-num">Module 03</div>
-        <h3>Managing Model Degradation</h3>
-        <ul class="module-topics">
-          <li>Drift deep dive: data drift vs. concept drift with PSI thresholds</li>
-          <li>Retraining strategies: scheduled vs. event-driven loops</li>
-          <li>MLOps integration and CI/CD pipeline automation</li>
-          <li>Root cause analysis through RAG pipelines and tool calls</li>
-        </ul>
+        <button class="module-trigger" aria-expanded="false">
+          <div class="module-trigger-left">
+            <div class="module-num">Module 03</div>
+            <h3>Managing Model Degradation</h3>
+          </div>
+          <svg class="module-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="module-body">
+          <ul class="module-topics">
+            <li><a href="#drift-types">Drift deep dive: data drift vs. concept drift with PSI thresholds</a></li>
+            <li><a href="#drift">Retraining strategies: scheduled vs. event-driven loops</a></li>
+            <li><a href="#drift">MLOps integration and CI/CD pipeline automation</a></li>
+            <li><a href="#drift">Root cause analysis through RAG pipelines and tool calls</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="module-card fade-in">
-        <div class="module-num">Module 04</div>
-        <h3>Explainability &amp; Ethics</h3>
-        <ul class="module-topics">
-          <li>Feature attribution: SHAP vs. LIME for interpreting predictions</li>
-          <li>Bias and fairness: monitoring for disparate outcomes</li>
-          <li>Guardrailing: implementing runtime protection and safety filters</li>
-          <li>NIST AI RMF and ISO/IEC 42001 alignment</li>
-        </ul>
+        <button class="module-trigger" aria-expanded="false">
+          <div class="module-trigger-left">
+            <div class="module-num">Module 04</div>
+            <h3>Explainability &amp; Ethics</h3>
+          </div>
+          <svg class="module-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="module-body">
+          <ul class="module-topics">
+            <li><a href="#explainability">Feature attribution: SHAP vs. LIME for interpreting predictions</a></li>
+            <li><a href="#pillars">Bias and fairness: monitoring for disparate outcomes</a></li>
+            <li><a href="#pillars">Guardrailing: implementing runtime protection and safety filters</a></li>
+            <li><a href="#concept">NIST AI RMF and ISO/IEC 42001 alignment</a></li>
+          </ul>
+        </div>
       </div>
 
       <div class="module-card fade-in">
-        <div class="module-num">Module 05</div>
-        <h3>Hands-on Implementation</h3>
-        <ul class="module-topics">
-          <li>Tooling landscape: Maxim, Braintrust, Langfuse, and Datadog compared</li>
-          <li>Building your first dashboard: Golden Signals visualization</li>
-          <li>OpenTelemetry integration and avoiding vendor lock-in</li>
-          <li>Case study forensics: analyzing real-world AI failures</li>
-        </ul>
+        <button class="module-trigger" aria-expanded="false">
+          <div class="module-trigger-left">
+            <div class="module-num">Module 05</div>
+            <h3>Hands-on Implementation</h3>
+          </div>
+          <svg class="module-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="module-body">
+          <ul class="module-topics">
+            <li><a href="#tools">Tooling landscape: Maxim, Braintrust, Langfuse, and Datadog compared</a></li>
+            <li><a href="#tools">Building your first dashboard: Golden Signals visualization</a></li>
+            <li><a href="#tools">OpenTelemetry integration and avoiding vendor lock-in</a></li>
+            <li><a href="#tools">Case study forensics: analyzing real-world AI failures</a></li>
+          </ul>
+        </div>
       </div>
 
     </div>
