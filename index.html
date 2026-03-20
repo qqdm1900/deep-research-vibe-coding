@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Model Observability — The Architecture of Trust</title>
+  <meta name="description" content="A comprehensive technical guide to AI model observability: drift detection, explainability, MLOps, tooling, and the future of self-adaptive AI systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════ -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">
+      AI<span>Observability</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#concept">Concepts</a></li>
+      <li><a href="#pillars">Pillars</a></li>
+      <li><a href="#drift">Drift &amp; Metrics</a></li>
+      <li><a href="#tools">Tooling</a></li>
+      <li><a href="#learn">Learn</a></li>
+      <li><a href="#learn" class="nav-cta">Get Started</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Research Report · Enterprise AI
+      </div>
+      <h1 class="hero-title">
+        The Architecture<br>of <em>Trust</em>
+      </h1>
+      <p class="hero-sub">
+        A comprehensive technical analysis of AI model observability—making the
+        black box transparent, measurable, and controllable at enterprise scale.
+      </p>
+      <div class="btn-group">
+        <a href="#concept" class="btn btn-primary">
+          Explore the Guide
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="#learn" class="btn btn-outline">
+          Learning Path
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">80%</div>
+          <div class="stat-label">of AI projects fail<br>to deliver production value</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">60%</div>
+          <div class="stat-label">reduction in incident<br>detection time with event-driven ops</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">€35M</div>
+          <div class="stat-label">max EU AI Act fine<br>for non-compliance</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     CONCEPT: MONITORING vs OBSERVABILITY
+════════════════════════════════════════════════ -->
+<section id="concept">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Foundations</div>
+      <h2>Monitoring vs. Observability</h2>
+      <p>
+        Traditional monitoring tracks <strong>known knowns</strong>—predefined thresholds
+        and failure modes. Observability surfaces <strong>unknown unknowns</strong>—the
+        emergent, probabilistic failures that defy predefined alerts.
+      </p>
+    </div>
+
+    <div class="compare-grid fade-in">
+      <!-- Monitoring -->
+      <div class="compare-card">
+        <span class="tag tag-gray">Traditional Monitoring</span>
+        <h3>What happened &amp; when?</h3>
+        <p>Collects predefined metrics, generates reports, and fires reactive alerts when a threshold is crossed. Designed for deterministic systems.</p>
+        <ul class="compare-list">
+          <li><span class="icon" aria-hidden="true">📊</span> Tracks specific, predefined indicators</li>
+          <li><span class="icon" aria-hidden="true">🔔</span> Reactive: alerts after failure occurs</li>
+          <li><span class="icon" aria-hidden="true">🎯</span> Targets "known knowns" (CPU &gt; 90%, 500 errors)</li>
+          <li><span class="icon" aria-hidden="true">🔍</span> Answers: <em>What happened and when?</em></li>
+        </ul>
+      </div>
+      <!-- Observability -->
+      <div class="compare-card featured">
+        <span class="tag tag-teal">AI Observability</span>
+        <h3>Why did it happen &amp; how to fix it?</h3>
+        <p>Infers the internal state of a system from its outputs. An investigative approach that enables root cause analysis, drift detection, and predictive insight.</p>
+        <ul class="compare-list">
+          <li><span class="icon" aria-hidden="true">🧠</span> Understands system-wide, interrelated behavior</li>
+          <li><span class="icon" aria-hidden="true">🔮</span> Proactive: enables exploratory analysis</li>
+          <li><span class="icon" aria-hidden="true">🌐</span> Surfaces "unknown unknowns" (semantic drift, bias)</li>
+          <li><span class="icon" aria-hidden="true">🩺</span> Answers: <em>Why did it fail? What will fail next?</em></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="table-wrap fade-in" style="margin-top: 2rem;">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Monitoring</th>
+            <th>AI Observability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Primary Goal</td>
+            <td>Track known metrics to ensure system health</td>
+            <td>Understand internal state for root cause analysis</td>
+          </tr>
+          <tr>
+            <td>Operational Mode</td>
+            <td>Reactive: alerts after threshold crossed</td>
+            <td>Proactive: exploratory telemetry analysis</td>
+          </tr>
+          <tr>
+            <td>Target Issues</td>
+            <td>"Known knowns" — CPU spikes, 500 errors</td>
+            <td>"Unknown unknowns" — semantic drift, bias</td>
+          </tr>
+          <tr>
+            <td>Trace Size</td>
+            <td>~900 bytes per span</td>
+            <td>~50 KB per span (full prompts + context)</td>
+          </tr>
+          <tr>
+            <td>Measurement</td>
+            <td>Binary: up/down, pass/fail</td>
+            <td>Quality spectrum: accuracy, groundedness, safety</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Business Case -->
+    <div class="section-header fade-in" style="margin-top: 4rem; max-width: 100%;">
+      <div class="section-label">Business Case</div>
+      <h2>The C-Suite Imperative</h2>
+      <p>Observability ties technical performance directly to financial outcomes—reducing unit costs, accelerating delivery, and managing regulatory risk.</p>
+    </div>
+
+    <div class="table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th>Business Metric</th>
+            <th>AI Impact Example</th>
+            <th>Observability Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cost Savings</td>
+            <td>Automated inventory saving $7,500 annually</td>
+            <td>Tracking token usage and GPU efficiency</td>
+          </tr>
+          <tr>
+            <td>Revenue Growth</td>
+            <td>Recommendations boosting order value by 20%</td>
+            <td>Monitoring recommendation drift and accuracy</td>
+          </tr>
+          <tr>
+            <td>Productivity</td>
+            <td>Contact center: 24h → 6h response time</td>
+            <td>Identifying latency bottlenecks in agent reasoning</td>
+          </tr>
+          <tr>
+            <td>Risk Management</td>
+            <td>Avoiding fines for biased lending decisions</td>
+            <td>Bias detection and ethical guardrail monitoring</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     FIVE PILLARS
+════════════════════════════════════════════════ -->
+<section id="pillars">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Enterprise Framework</div>
+      <h2>The Five Pillars of AI Observability</h2>
+      <p>
+        Autonomous AI agents require deep visibility across five core dimensions
+        to ensure transparency, accountability, and safe operation at scale.
+      </p>
+    </div>
+
+    <div class="pillars-grid">
+
+      <div class="pillar-card fade-in">
+        <div class="pillar-icon" style="background: rgba(14,165,233,0.12); color: var(--teal);">🧠</div>
+        <h3>Cognition &amp; Reasoning</h3>
+        <p>
+          Exposes the internal decision-making process of AI systems—capturing intermediate
+          reasoning traces, token-level probabilities, and activation patterns.
+          Transforms opaque reasoning into a measurable, auditable process essential
+          for bias detection and risk evaluation.
+        </p>
+      </div>
+
+      <div class="pillar-card fade-in">
+        <div class="pillar-icon" style="background: rgba(16,185,129,0.12); color: var(--emerald);">🔗</div>
+        <h3>Traceability</h3>
+        <p>
+          Reconstructs the full execution lineage from input to final action,
+          highlighting every tool call, API parameter, and downstream dependency.
+          Critical for behavioral forensics, compliance audits, and
+          debugging multi-step agent workflows.
+        </p>
+      </div>
+
+      <div class="pillar-card fade-in">
+        <div class="pillar-icon" style="background: rgba(245,158,11,0.12); color: var(--amber);">⚡</div>
+        <h3>Performance</h3>
+        <p>
+          Provides a correlated view of system behavior under load—quantifying
+          retrieval relevance drift, similarity variance, and workflow-level timing
+          across multi-agent pipelines. Ensures that hardware investments
+          like GPUs are fully utilized and not idling.
+        </p>
+      </div>
+
+      <div class="pillar-card fade-in">
+        <div class="pillar-icon" style="background: rgba(168,85,247,0.12); color: #a855f7;">⚙️</div>
+        <h3>Environment &amp; Configuration</h3>
+        <p>
+          Tracks every change that influences AI behavior: model version updates,
+          prompt revisions, and guardrail modifications. Creates a temporal audit trail
+          linking configuration changes to behavioral shifts, enabling rapid
+          rollback and impact analysis.
+        </p>
+      </div>
+
+      <div class="pillar-card fade-in">
+        <div class="pillar-icon" style="background: rgba(244,63,94,0.12); color: var(--rose);">🛡️</div>
+        <h3>Security &amp; Access Governance</h3>
+        <p>
+          Monitors the live attack surface to ensure agents do not surface sensitive
+          records and that tool orchestration remains within traceable controls.
+          Detects indirect prompt injection, tool-mediated data exfiltration,
+          and unauthorized capability escalation in real time.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     DRIFT & METRICS
+════════════════════════════════════════════════ -->
+<section id="drift">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Technical Nuances</div>
+      <h2>Drift Detection &amp; Response Quality</h2>
+      <p>
+        The unique failure modes of AI require specialized metrics that go far beyond
+        uptime and latency. Model drift, explainability, and output quality are the
+        core challenges demanding purpose-built instrumentation.
+      </p>
+    </div>
+
+    <!-- Drift Types Table -->
+    <h3 class="fade-in" style="margin-bottom: 1rem; color: var(--text-main);">Drift Types &amp; Detection Methods</h3>
+    <div class="table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th>Drift Type</th>
+            <th>Definition</th>
+            <th>Detection Method</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Data Drift</td>
+            <td>Input distribution changes while model logic remains stable</td>
+            <td>Jensen-Shannon Divergence, KS test, PSI</td>
+          </tr>
+          <tr>
+            <td>Concept Drift</td>
+            <td>The relationship between inputs and correct outputs changes</td>
+            <td>Accuracy, Precision, Recall, F1-score over time</td>
+          </tr>
+          <tr>
+            <td>Prediction Drift</td>
+            <td>Distribution of model outputs shifts</td>
+            <td>KL divergence, Wasserstein distance</td>
+          </tr>
+          <tr>
+            <td>Training-Serving Skew</td>
+            <td>Mismatch between training data and production distribution</td>
+            <td>Schema comparison, feature distribution alignment</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- PSI Thresholds -->
+    <h3 class="fade-in" style="margin: 2.5rem 0 0.5rem; color: var(--text-main);">Population Stability Index (PSI) Thresholds</h3>
+    <p class="fade-in" style="margin-bottom: 0.25rem;">PSI measures how much a feature's distribution has shifted between training and production.</p>
+    <div class="psi-row fade-in">
+      <div class="psi-item">
+        <div>
+          <div class="psi-badge psi-green">PSI &lt; 0.10</div>
+        </div>
+        <div>
+          <div class="psi-label">Stable</div>
+          <div class="psi-desc">No action needed. Distribution is consistent with training baseline.</div>
+        </div>
+      </div>
+      <div class="psi-item">
+        <div>
+          <div class="psi-badge psi-amber">0.10 – 0.25</div>
+        </div>
+        <div>
+          <div class="psi-label">Minor Decline</div>
+          <div class="psi-desc">Recalibrate thresholds. Monitor closely for further degradation.</div>
+        </div>
+      </div>
+      <div class="psi-item">
+        <div>
+          <div class="psi-badge psi-red">PSI &gt; 0.25</div>
+        </div>
+        <div>
+          <div class="psi-label">Significant Drop</div>
+          <div class="psi-desc">Trigger automated retraining pipeline immediately.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Explainability -->
+    <div class="section-header fade-in" style="margin-top: 4rem;">
+      <div class="section-label">Explainability</div>
+      <h2>LIME vs. SHAP</h2>
+      <p>Two leading techniques for opening the black box and clarifying how a model reached a specific decision.</p>
+    </div>
+
+    <div class="table-wrap fade-in">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>LIME</th>
+            <th>SHAP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Foundation</td>
+            <td>Local surrogate models</td>
+            <td>Game theory (Shapley values)</td>
+          </tr>
+          <tr>
+            <td>Scope</td>
+            <td>Strictly local — single prediction</td>
+            <td>Local and global — consistent aggregation</td>
+          </tr>
+          <tr>
+            <td>Consistency</td>
+            <td>No guarantee; can be unstable</td>
+            <td>Guaranteed — attributions sum to prediction delta</td>
+          </tr>
+          <tr>
+            <td>Computation Speed</td>
+            <td>Fast for single instance</td>
+            <td>KernelSHAP is slow; TreeSHAP is fast for trees</td>
+          </tr>
+          <tr>
+            <td>Best For</td>
+            <td>Quick single-prediction explanations</td>
+            <td>Understanding entire model dependencies + audits</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- GenAI Metrics -->
+    <div class="section-header fade-in" style="margin-top: 4rem;">
+      <div class="section-label">Generative AI</div>
+      <h2>Response Quality Metrics</h2>
+      <p>Generative systems are probabilistic. These metrics assess accuracy, completeness, and relevance at scale.</p>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card fade-in">
+        <h4>Hallucination Rate</h4>
+        <p>Tracks frequency of ungrounded or false content. The primary trust signal for RAG-based systems.</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h4>Groundedness</h4>
+        <p>Measures whether answers are backed by retrieved sources or verified tool outputs.</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h4>Factual Accuracy</h4>
+        <p>Correctness of responses. Often requires LLM-as-a-judge rubrics or human oversight.</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h4>Toxicity &amp; Safety</h4>
+        <p>Real-time identification of harmful content, bias indicators, and PII leakage.</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h4>Token Efficiency</h4>
+        <p>Tracks token consumption rates to quantify operational cost and identify wasted compute patterns.</p>
+      </div>
+      <div class="metric-card fade-in">
+        <h4>Relevance</h4>
+        <p>Measures how closely the response addresses the original query intent and context.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     TOOLING
+════════════════════════════════════════════════ -->
+<section id="tools">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Platform Landscape</div>
+      <h2>Observability Tooling</h2>
+      <p>
+        Selecting the right platform means matching capabilities to organizational
+        maturity and workload type. Prefer tools with <strong>OpenTelemetry (OTel)</strong>
+        support to avoid vendor lock-in.
+      </p>
+    </div>
+
+    <div class="tools-grid">
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Braintrust</span>
+          <span class="tool-badge badge-cloud">Cloud</span>
+        </div>
+        <div class="best-for">Best for: High-scale tracing &amp; improvement loops</div>
+        <p>Supports 10GB+ traces, built-in annotation workflows, and custom LLM scorers. Purpose-built for systematic AI quality improvement.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Annotation</span>
+          <span class="feature-tag">Custom scorers</span>
+          <span class="feature-tag">Large traces</span>
+          <span class="feature-tag">Evals</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Langfuse</span>
+          <span class="tool-badge badge-oss">Open Source</span>
+        </div>
+        <div class="best-for">Best for: Data control &amp; self-hosting</div>
+        <p>MIT licensed, fully self-hostable with automatic token cost analysis. The go-to choice for teams requiring full data residency control.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Self-host</span>
+          <span class="feature-tag">MIT license</span>
+          <span class="feature-tag">Token cost</span>
+          <span class="feature-tag">OTel</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Datadog LLM</span>
+          <span class="tool-badge badge-enterprise">Enterprise</span>
+        </div>
+        <div class="best-for">Best for: Teams already on the Datadog ecosystem</div>
+        <p>End-to-end LLM chain tracing with PII redaction baked in. Integrates seamlessly with existing Datadog infrastructure and APM dashboards.</p>
+        <div class="tool-features">
+          <span class="feature-tag">PII redaction</span>
+          <span class="feature-tag">Chain tracing</span>
+          <span class="feature-tag">OTel</span>
+          <span class="feature-tag">APM integration</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Arize AI</span>
+          <span class="tool-badge badge-cloud">Cloud</span>
+        </div>
+        <div class="best-for">Best for: Traditional ML &amp; unstructured data</div>
+        <p>UMAP embedding clustering, bias tracing, and data drift detection across structured and unstructured data. Strong ML fundamentals.</p>
+        <div class="tool-features">
+          <span class="feature-tag">UMAP clustering</span>
+          <span class="feature-tag">Bias tracing</span>
+          <span class="feature-tag">Drift detection</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Fiddler AI</span>
+          <span class="tool-badge badge-enterprise">Enterprise</span>
+        </div>
+        <div class="best-for">Best for: Regulated industries</div>
+        <p>Unified ML and GenAI visibility with built-in Shapley value explainability and LLM guardrails. Designed for financial services and healthcare.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Shapley values</span>
+          <span class="feature-tag">LLM guardrails</span>
+          <span class="feature-tag">Compliance</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Maxim AI</span>
+          <span class="tool-badge badge-cloud">Cloud</span>
+        </div>
+        <div class="best-for">Best for: Multi-agent simulation &amp; evaluation</div>
+        <p>Scenario simulation across hundreds of personas with a full prompt management UI. Ideal for testing agentic systems before production.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Persona simulation</span>
+          <span class="feature-tag">Prompt mgmt</span>
+          <span class="feature-tag">Agent testing</span>
+        </div>
+      </div>
+
+      <div class="tool-card fade-in">
+        <div class="tool-header">
+          <span class="tool-name">Monte Carlo</span>
+          <span class="tool-badge badge-enterprise">Enterprise</span>
+        </div>
+        <div class="best-for">Best for: Data &amp; AI reliability across the lakehouse</div>
+        <p>End-to-end lineage tracking and automated root-cause analysis across the full data warehouse and AI pipeline stack.</p>
+        <div class="tool-features">
+          <span class="feature-tag">Lineage tracking</span>
+          <span class="feature-tag">Root cause</span>
+          <span class="feature-tag">Lakehouse</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     LEARNING PATH
+════════════════════════════════════════════════ -->
+<section id="learn">
+  <div class="container">
+    <div class="section-header fade-in">
+      <div class="section-label">Curriculum</div>
+      <h2>Your Learning Path</h2>
+      <p>
+        A structured progression from foundational theory to production-ready
+        implementation—five modules covering everything from probabilistic systems
+        to hands-on dashboard design.
+      </p>
+    </div>
+
+    <div class="learn-grid">
+
+      <div class="module-card fade-in">
+        <div class="module-num">Module 01</div>
+        <h3>Introduction to AI Reliability</h3>
+        <ul class="module-topics">
+          <li>What is Observability? Distinguishing it from monitoring and explainability</li>
+          <li>The business case, ROI data, and regulatory landscape</li>
+          <li>Core concepts: probabilistic systems and silent failures</li>
+          <li>The EU AI Act and compliance obligations</li>
+        </ul>
+      </div>
+
+      <div class="module-card fade-in">
+        <div class="module-num">Module 02</div>
+        <h3>The Metrics of Intelligence</h3>
+        <ul class="module-topics">
+          <li>Standard telemetry: logs, metrics, and traces in an AI context</li>
+          <li>The new pillars: Evals, Annotation, and AI-native tracing</li>
+          <li>GenAI specifics: groundedness, relevance, hallucination rates</li>
+          <li>Token efficiency and cost attribution</li>
+        </ul>
+      </div>
+
+      <div class="module-card fade-in">
+        <div class="module-num">Module 03</div>
+        <h3>Managing Model Degradation</h3>
+        <ul class="module-topics">
+          <li>Drift deep dive: data drift vs. concept drift with PSI thresholds</li>
+          <li>Retraining strategies: scheduled vs. event-driven loops</li>
+          <li>MLOps integration and CI/CD pipeline automation</li>
+          <li>Root cause analysis through RAG pipelines and tool calls</li>
+        </ul>
+      </div>
+
+      <div class="module-card fade-in">
+        <div class="module-num">Module 04</div>
+        <h3>Explainability &amp; Ethics</h3>
+        <ul class="module-topics">
+          <li>Feature attribution: SHAP vs. LIME for interpreting predictions</li>
+          <li>Bias and fairness: monitoring for disparate outcomes</li>
+          <li>Guardrailing: implementing runtime protection and safety filters</li>
+          <li>NIST AI RMF and ISO/IEC 42001 alignment</li>
+        </ul>
+      </div>
+
+      <div class="module-card fade-in">
+        <div class="module-num">Module 05</div>
+        <h3>Hands-on Implementation</h3>
+        <ul class="module-topics">
+          <li>Tooling landscape: Maxim, Braintrust, Langfuse, and Datadog compared</li>
+          <li>Building your first dashboard: Golden Signals visualization</li>
+          <li>OpenTelemetry integration and avoiding vendor lock-in</li>
+          <li>Case study forensics: analyzing real-world AI failures</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Checklist -->
+    <div class="checklist-wrap fade-in">
+      <h3>Pre-Deployment Implementation Checklist</h3>
+      <ul class="checklist">
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Establish baselines</strong> — document model performance during a stable 2–4 week production window to define "normal" behavior</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Instrument from the start</strong> — build AI-native telemetry at design time rather than retrofitting after a failure</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Capture minimum telemetry</strong> — user/system prompts, model version, token usage, tool calls, and cost metadata</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Monitor the data cycle</strong> — track input quality (missing values, schema changes) alongside model behavior</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Define response protocols</strong> — establish clear roles and escalation paths for data quality vs. model bias incidents</span>
+        </li>
+        <li>
+          <span class="check-icon">✓</span>
+          <span><strong>Enable event-driven retraining</strong> — connect drift alerts to automated pipeline triggers rather than relying on scheduled intervals</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ═══════════════════════════════════════════════
+     FUTURE OUTLOOK
+════════════════════════════════════════════════ -->
+<section id="future">
+  <div class="future-bg"></div>
+  <div class="container">
+    <div class="future-content">
+      <div class="section-label fade-in">Future Outlook</div>
+      <h2 class="fade-in">Toward Self-Adaptive AI</h2>
+      <p class="fade-in">
+        As architectures evolve from static models to dynamic, multi-agent workflows,
+        observability becomes the <strong>scaffolding required for autonomous decision-making</strong>.
+        The future lies in self-adaptive pipelines that utilize MAPE-K control loops to
+        monitor, analyze, plan, and execute updates autonomously.
+      </p>
+      <p class="fade-in">
+        This journey from <em>"is it working?"</em> to <em>"how is it reasoning?"</em> marks
+        the next frontier in the architecture of trust.
+      </p>
+
+      <div class="mape-grid fade-in">
+        <div class="mape-item">
+          <div class="mape-letter">M</div>
+          <h4>Monitor</h4>
+          <p>Continuously collect telemetry from all model interactions and system signals</p>
+        </div>
+        <div class="mape-item">
+          <div class="mape-letter">A</div>
+          <h4>Analyze</h4>
+          <p>Detect drift, anomalies, and degradation patterns using statistical thresholds</p>
+        </div>
+        <div class="mape-item">
+          <div class="mape-letter">P</div>
+          <h4>Plan</h4>
+          <p>Determine corrective action: recalibration, retraining, or guardrail update</p>
+        </div>
+        <div class="mape-item">
+          <div class="mape-letter">E</div>
+          <h4>Execute</h4>
+          <p>Automatically deploy the update, compare against production, and gate rollout</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">AI<span>Observability</span></div>
+        <p>
+          A comprehensive technical reference on AI model observability—based on
+          the research report <em>The Architecture of Trust</em>.
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4>Sections</h4>
+        <ul>
+          <li><a href="#concept">Monitoring vs. Observability</a></li>
+          <li><a href="#pillars">Five Pillars</a></li>
+          <li><a href="#drift">Drift &amp; Metrics</a></li>
+          <li><a href="#tools">Tooling Landscape</a></li>
+          <li><a href="#learn">Learning Path</a></li>
+          <li><a href="#future">Future Outlook</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Key Concepts</h4>
+        <ul>
+          <li><a href="#drift">Model Drift &amp; PSI</a></li>
+          <li><a href="#drift">SHAP &amp; LIME</a></li>
+          <li><a href="#drift">Hallucination Rate</a></li>
+          <li><a href="#concept">EU AI Act</a></li>
+          <li><a href="#future">MAPE-K Loops</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Based on <em>The Architecture of Trust: A Comprehensive Technical Analysis of AI Model Observability</em></p>
+      <p style="color: var(--slate-600);">Research · 2026</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
